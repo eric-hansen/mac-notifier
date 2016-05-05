@@ -72,9 +72,9 @@
 
   (let ((notify-cmd (format "osascript -e 'display notification %S with title %S" body title)))
     (if (not (eq "" subtitle))
-	(setq notify-cmd (format "%s with subtitle %S" subtitle)))
+	(setq notify-cmd (format "%s with subtitle %S" notify-cmd subtitle)))
     (if (not (eq "" sound))
-	(setq notify-cmd (format "%s with sound %S" sound)))
+	(setq notify-cmd (format "%s with sound %S" notify-cmd sound)))
     (shell-command-to-string (format "%s'" notify-cmd))))
 
 (provide 'mac-notifier)

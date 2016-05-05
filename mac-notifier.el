@@ -7,7 +7,7 @@
 ;; URL: https://github.com/eric-hansen/mac-notifier
 ;; Version: 0.0.1
 ;; Keywords: emacs eric-hansen mac notify native
-;; Package-Requires: ((emacs "24"))
+;; Package-Requires: ((emacs "24.3"))
 
 ;; This file is not part of GNU Emacs
 
@@ -53,7 +53,7 @@
 
   (setq mac-notifier-initialized t))
 
-(defun* mac-notifier-notify (body title &key (subtitle "") (sound ""))
+(cl-defun mac-notifier-notify (body title &key (subtitle "") (sound ""))
   "Sends a notification to the Mac OS set up so we can tell the user something super duper awesome happened!
 
   If you want something more informative you can also pass in keys for a subtitle and sound, like so:
@@ -70,14 +70,12 @@
   (unless mac-notifier-should-run
     (user-error "This can only run on Mac systems."))
 
-  (setq notify-cmd (format "osascript -e 'display notification %S with title %S" body title))
-
-  (if (not (eq "" subtitle))
-      (setq notify-cmd (format "%s with subtitle %S" subtitle)))
-  (if (not (eq "" sound))
-    (setq notify-cmd (format "%s with sound %S" sound)))
-
-  (shell-command-to-string (format "%s'" notify-cmd)))
+  (let ((notify-cmd (format "osascript -e 'display notification %S with title %S" body title)))
+    (if (not (eq "" subtitle))
+	(setq notify-cmd (format "%s with subtitle %S" notify-cmd subtitle)))
+    (if (not (eq "" sound))
+	(setq notify-cmd (format "%s with sound %S" notify-cmd sound)))
+    (shell-command-to-string (format "%s'" notify-cmd))))
 
 (provide 'mac-notifier)
 

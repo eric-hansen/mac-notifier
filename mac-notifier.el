@@ -70,14 +70,12 @@
   (unless mac-notifier-should-run
     (user-error "This can only run on Mac systems."))
 
-  (setq notify-cmd (format "osascript -e 'display notification %S with title %S" body title))
-
-  (if (not (eq "" subtitle))
-      (setq notify-cmd (format "%s with subtitle %S" subtitle)))
-  (if (not (eq "" sound))
-    (setq notify-cmd (format "%s with sound %S" sound)))
-
-  (shell-command-to-string (format "%s'" notify-cmd)))
+  (let ((notify-cmd (format "osascript -e 'display notification %S with title %S" body title)))
+    (if (not (eq "" subtitle))
+	(setq notify-cmd (format "%s with subtitle %S" subtitle)))
+    (if (not (eq "" sound))
+	(setq notify-cmd (format "%s with sound %S" sound)))
+    (shell-command-to-string (format "%s'" notify-cmd))))
 
 (provide 'mac-notifier)
 

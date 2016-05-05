@@ -53,7 +53,7 @@
 
   (setq mac-notifier-initialized t))
 
-(defun* mac-notifier-notify (body title &key (subtitle "") (sound ""))
+(cl-defun mac-notifier-notify (body title &key (subtitle "") (sound ""))
   "Sends a notification to the Mac OS set up so we can tell the user something super duper awesome happened!
 
   If you want something more informative you can also pass in keys for a subtitle and sound, like so:

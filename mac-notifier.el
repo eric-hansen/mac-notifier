@@ -7,7 +7,7 @@
 ;; URL: https://github.com/eric-hansen/mac-notifier
 ;; Version: 0.0.1
 ;; Keywords: emacs eric-hansen mac notify native
-;; Package-Requires: ((emacs "24"))
+;; Package-Requires: ((emacs "24.3"))
 
 ;; This file is not part of GNU Emacs
 
